@@ -29,23 +29,27 @@ async function getQuoteFromApi() {
   showLoadingSpinner();
   // We need to use a Proxy URL to make our API call in order to avoid a CORS error
   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const hackerApiUrl = 'hackerman.wtf/api';
   const apiUrl = 'https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json';
   try {
-    const response = await fetch(proxyUrl + apiUrl);
+    const response = await fetch(proxyUrl + hackerApiUrl);
     const data = await response.json();
-    if (data.quoteAuthor === '') {
-      authorText.innerText = 'Unknown';
-    } else {
-      authorText.innerText = data.quoteAuthor;
-    }
-    if (data.quoteText.length > 120) {
+    console.log(data.quotes[0]);
+
+    // if (data.quoteAuthor === '') {
+    authorText.innerText = 'Unknown';
+    // } else {
+    //   authorText.innerText = data.quoteAuthor;
+    // }
+    if (data.quotes[0] > 120) {
       quoteText.classList.add('long-quote');
     } else {
       quoteText.classList.remove('long-quote');
     }
-    quoteText.innerText = data.quoteText;
+    quoteText.innerText = data.quotes[0];
     removeLoadingSpinner();
   } catch (error) {
+    console.log(error);
     getQuoteFromApi();
   }
 }
