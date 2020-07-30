@@ -99,7 +99,10 @@ const getDevLoremQuoteFromApi = async () => {
 };
 const getJaneAustinQuote = () => {
   console.log('clickd jane');
-  console.log(generate);
+  generate();
+  quoteText.classList.add('long-quote');
+  quoteText.innerHTML = generate();
+  authorText.innerText = 'Jane Austin';
 };
 
 getQuoteFromApi();
