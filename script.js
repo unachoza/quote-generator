@@ -1,10 +1,17 @@
 console.log('obviouusl this works');
+// const generate = require('./janeAustin.js');
+// console.log(generate);
+// import { generate } from './janeAustin.js';
+// import { generate } from './janeAustin.js';
 
 const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
 const twitterBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
+const movieQuoteBtn = document.getElementById('movie-quote');
+const hackerQuoteBtn = document.getElementById('hacker-quote');
+const janeQuoteBtn = document.getElementById('jane-quote');
 const loader = document.getElementById('loader');
 
 const showLoadingSpinner = () => {
@@ -40,7 +47,6 @@ const getQuoteFromApi = async () => {
     removeLoadingSpinner();
   } catch (error) {
     console.log(error);
-    // getQuoteFromApi();
   }
 };
 
@@ -52,18 +58,14 @@ const tweetQuote = () => {
   window.open(twitterUrl, '_blank');
 };
 
-// On Load
-// getQuoteFromApi();
-
-const getHackerQuoteFromApi = () => {
+const getHackerQuoteFromApi = async () => {
   showLoadingSpinner();
   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
   const hackerApiUrl = 'hackerman.wtf/api';
   try {
     const response = await fetch(proxyUrl + hackerApiUrl);
     const data = await response.json();
-    console.log(data.quotes[0]);
-    authorText.innerText = 'Unknown';
+    authorText.innerText = 'Hacker';
     if (data.quotes[0] > 120) {
       quoteText.classList.add('long-quote');
     } else {
@@ -74,7 +76,7 @@ const getHackerQuoteFromApi = () => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 const getDevLoremQuoteFromApi = async () => {
   showLoadingSpinner();
@@ -83,11 +85,10 @@ const getDevLoremQuoteFromApi = async () => {
   try {
     const response = await fetch(proxyUrl + devLoremUrl);
     const data = await response.json();
-    console.log(data.paragraphs);
     if (data.source === '') {
       authorText.innerText = 'Unknown';
     } else {
-      authorText.innerText = data.source;
+      authorText.innerText = data.source + ' - in character';
     }
     quoteText.classList.add('long-quote');
     quoteText.innerHTML = data.paragraphs[0];
@@ -96,8 +97,15 @@ const getDevLoremQuoteFromApi = async () => {
     console.log(error);
   }
 };
+const getJaneAustinQuote = () => {
+  console.log('clickd jane');
+  console.log(generate);
+};
 
 getQuoteFromApi();
 
-newQuoteBtn.addEventListener('click', getDevLoremQuoteFromApi);
+newQuoteBtn.addEventListener('click', getQuoteFromApi);
+movieQuoteBtn.addEventListener('click', getDevLoremQuoteFromApi);
+hackerQuoteBtn.addEventListener('click', getHackerQuoteFromApi);
+janeQuoteBtn.addEventListener('click', getJaneAustinQuote);
 twitterBtn.addEventListener('click', tweetQuote);
