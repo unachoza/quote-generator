@@ -22,85 +22,16 @@ const removeLoadingSpinner = () => {
   }
 };
 
-const normalizeData = (data) => {
-  console.log('data is ', generate());
+const normalizeQuoteDataFromApis = (data) => {
   let quoteText;
-  quoteText = janeQuote
-    ? generate()
-    : data.quotes
+  quoteText = data.quotes
     ? data.quotes[0]
     : data.quoteText
     ? data.quoteText
     : data.paragraphs[0]
     ? data.paragraphs[0]
     : 'end';
-  console.log('data is ', quoteText);
-};
-// // if (!data) {
-// //   generate();
-// // } else
-//   quoteText = data.quotes
-//     ? data.quotes[0]
-//     : data.quoteText
-//     ? data.quoteText
-//     : data.paragraphs[0]
-//     ? data.paragraphs[0]
-//     : generate();
-// console.log('data is ', quoteText);
-
-// quoteText = !data
-// ? generate()
-// : data.quotes
-// ? data.quotes[0]
-// : data.quoteText
-// ? data.quoteText
-// : data.paragraphs[0]
-// ? data.paragraphs[0]
-// : 'end';
-// console.log('data is ', quoteText);
-// };
-
-// let newData = { quoteText: data.quotes ? 'yes' : 'no' };
-// console.log(newData);
-// return newData;
-
-// : data.quoteText
-// ? data.quoteText
-// : data.paragraphs[0]
-// ? data.paragraphs[0]
-// : generate(),
-// authorText: data.quoteAuthor?.quoteAuthor || data.quotes?.quotes[0],
-
-// data.janeQuote?.janeQuote ||
-// data.quoteText?.quoteText ||
-// data.quotes?.quotes[0] ||
-// data.paragraphs?.paragraphs[0],
-// };
-// const normalizeData = (data) => {
-//   console.log(data);
-//   return (data = {
-//     authorText: data.quoteAuthor?.quoteAuthor || data.quotes?.quotes[0],
-//     quoteText:
-//       data.janeQuote?.janeQuote ||
-//       data.quoteText?.quoteText ||
-//       data.quotes?.quotes[0] ||
-//       data.paragraphs?.paragraphs[0],
-//   });
-// };
-
-const getNewQuote = async (apiURL) => {
-  showLoadingSpinner();
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  try {
-    const response = await fetch(proxyUrl + apiURL);
-    const data = await response.json();
-    console.log(normalizeData(data));
-    authorText.innerText = data.quoteAuthor;
-    quoteText.innerText = data.quoteText;
-    removeLoadingSpinner();
-  } catch (error) {
-    console.log(error);
-  }
+  return quoteText;
 };
 
 const getQuoteFromApi = async () => {
@@ -110,21 +41,11 @@ const getQuoteFromApi = async () => {
   try {
     const response = await fetch(proxyUrl + apiUrl);
     const data = await response.json();
-    console.log(normalizeData(data));
-    console.log('trying');
-    if (data.quoteAuthor === '') {
-      authorText.innerText = 'Unknown';
-    } else {
-      authorText.innerText = data.quoteAuthor;
-    }
-    if (data.quoteText.length > 120) {
-      quoteText.classList.add('long-quote');
-    } else {
-      quoteText.classList.remove('long-quote');
-    }
-    quoteText.innerText = data.quoteText;
+    authorText.innerText = data.quoteAuthor === '' ? 'Unknown' : data.quoteAuthor;
+    quoteText.innerText = normalizeQuoteDataFromApis(data);
     removeLoadingSpinner();
   } catch (error) {
+    quoteText.innerText = 'bummer';
     console.log(error);
   }
 };
@@ -144,7 +65,7 @@ const getHackerQuoteFromApi = async () => {
   try {
     const response = await fetch(proxyUrl + hackerApiUrl);
     const data = await response.json();
-    console.log(normalizeData(data));
+    console.log(normalizeQuoteDataFromApis(data));
     console.log('trying');
     authorText.innerText = 'Hacker';
     if (data.quotes[0] > 120) {
@@ -166,7 +87,7 @@ const getDevLoremQuoteFromApi = async () => {
   try {
     const response = await fetch(proxyUrl + devLoremUrl);
     const data = await response.json();
-    console.log(normalizeData(data));
+    console.log(normalizeQuoteDataFromApis(data));
     if (data.source === '') {
       authorText.innerText = 'Unknown';
     } else {
@@ -180,8 +101,7 @@ const getDevLoremQuoteFromApi = async () => {
   }
 };
 const getJaneAustinQuote = () => {
-  console.log('clickd jane');
-  console.log(normalizeData(generate()));
+  console.log(generate());
   generate();
   quoteText.classList.add('long-quote');
   quoteText.innerHTML = generate();
