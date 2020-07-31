@@ -27,7 +27,7 @@ const normalizeQuoteDataFromApis = (data) => {
     : data.quoteText
     ? data.quoteText
     : data.paragraphs[0]
-    ? data.paragraphs[0]
+    ? data.paragraphs[0].replace(/[<p>][<\/p>]/g, '')
     : 'end');
 };
 
