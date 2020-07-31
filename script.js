@@ -1,8 +1,4 @@
 console.log('obviouusl this works');
-// const generate = require('./janeAustin.js');
-// console.log(generate);
-// import { generate } from './janeAustin.js';
-// import { generate } from './janeAustin.js';
 
 const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
@@ -26,6 +22,45 @@ const removeLoadingSpinner = () => {
   }
 };
 
+const normalizeData = (data) => {
+  console.log('data is ', generate());
+  let quoteText;
+  quoteText = janeQuote
+    ? generate()
+    : data.quotes
+    ? data.quotes[0]
+    : data.quoteText
+    ? data.quoteText
+    : data.paragraphs[0]
+    ? data.paragraphs[0]
+    : 'end';
+  // authorText = janeQuote
+  //   ? 'Jane Austin'
+  //   : data.quotes
+  //   ? 'Hacker'
+  //   : data.quoteText
+  //   ? data.quoteAuthor
+  //   : data.paragraphs[0]
+  //   ? data.source + ' - in character'
+  //   : 'end';
+  return quoteText;
+};
+
+const getNewQuote = async (apiURL) => {
+  showLoadingSpinner();
+  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  try {
+    const response = await fetch(proxyUrl + apiURL);
+    const data = await response.json();
+    console.log(normalizeData(data));
+    authorText.innerText = data.quoteAuthor;
+    quoteText.innerText = normalizeData(data);
+    removeLoadingSpinner();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const getQuoteFromApi = async () => {
   showLoadingSpinner();
   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
@@ -38,12 +73,13 @@ const getQuoteFromApi = async () => {
     } else {
       authorText.innerText = data.quoteAuthor;
     }
-    if (data.quoteText.length > 120) {
-      quoteText.classList.add('long-quote');
-    } else {
-      quoteText.classList.remove('long-quote');
-    }
-    quoteText.innerText = data.quoteText;
+    // if (data.quoteText.length > 120) {
+    //   quoteText.classList.add('long-quote');
+    // } else {
+    //   quoteText.classList.remove('long-quote');
+    // }
+    // console.log(normalizeData(data));
+    quoteText.innerText = normalizeData(data);
     removeLoadingSpinner();
   } catch (error) {
     console.log(error);
@@ -65,13 +101,15 @@ const getHackerQuoteFromApi = async () => {
   try {
     const response = await fetch(proxyUrl + hackerApiUrl);
     const data = await response.json();
-    authorText.innerText = 'Hacker';
-    if (data.quotes[0] > 120) {
-      quoteText.classList.add('long-quote');
-    } else {
-      quoteText.classList.remove('long-quote');
-    }
-    quoteText.innerText = data.quotes[0];
+    console.log(normalizeData(data));
+    console.log('trying');
+    // authorText.innerText = 'Hacker';
+    // if (data.quotes[0] > 120) {
+    //   quoteText.classList.add('long-quote');
+    // } else {
+    //   quoteText.classList.remove('long-quote');
+    // }
+    quoteText.innerText = normalizeData(data);
     removeLoadingSpinner();
   } catch (error) {
     console.log(error);
@@ -85,6 +123,7 @@ const getDevLoremQuoteFromApi = async () => {
   try {
     const response = await fetch(proxyUrl + devLoremUrl);
     const data = await response.json();
+    console.log(normalizeData(data));
     if (data.source === '') {
       authorText.innerText = 'Unknown';
     } else {
@@ -99,6 +138,7 @@ const getDevLoremQuoteFromApi = async () => {
 };
 const getJaneAustinQuote = () => {
   console.log('clickd jane');
+  console.log(normalizeData(generate()));
   generate();
   quoteText.classList.add('long-quote');
   quoteText.innerHTML = generate();
