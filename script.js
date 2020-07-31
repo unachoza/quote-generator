@@ -34,17 +34,59 @@ const normalizeData = (data) => {
     : data.paragraphs[0]
     ? data.paragraphs[0]
     : 'end';
-  // authorText = janeQuote
-  //   ? 'Jane Austin'
-  //   : data.quotes
-  //   ? 'Hacker'
-  //   : data.quoteText
-  //   ? data.quoteAuthor
-  //   : data.paragraphs[0]
-  //   ? data.source + ' - in character'
-  //   : 'end';
-  return quoteText;
+  console.log('data is ', quoteText);
 };
+// // if (!data) {
+// //   generate();
+// // } else
+//   quoteText = data.quotes
+//     ? data.quotes[0]
+//     : data.quoteText
+//     ? data.quoteText
+//     : data.paragraphs[0]
+//     ? data.paragraphs[0]
+//     : generate();
+// console.log('data is ', quoteText);
+
+// quoteText = !data
+// ? generate()
+// : data.quotes
+// ? data.quotes[0]
+// : data.quoteText
+// ? data.quoteText
+// : data.paragraphs[0]
+// ? data.paragraphs[0]
+// : 'end';
+// console.log('data is ', quoteText);
+// };
+
+// let newData = { quoteText: data.quotes ? 'yes' : 'no' };
+// console.log(newData);
+// return newData;
+
+// : data.quoteText
+// ? data.quoteText
+// : data.paragraphs[0]
+// ? data.paragraphs[0]
+// : generate(),
+// authorText: data.quoteAuthor?.quoteAuthor || data.quotes?.quotes[0],
+
+// data.janeQuote?.janeQuote ||
+// data.quoteText?.quoteText ||
+// data.quotes?.quotes[0] ||
+// data.paragraphs?.paragraphs[0],
+// };
+// const normalizeData = (data) => {
+//   console.log(data);
+//   return (data = {
+//     authorText: data.quoteAuthor?.quoteAuthor || data.quotes?.quotes[0],
+//     quoteText:
+//       data.janeQuote?.janeQuote ||
+//       data.quoteText?.quoteText ||
+//       data.quotes?.quotes[0] ||
+//       data.paragraphs?.paragraphs[0],
+//   });
+// };
 
 const getNewQuote = async (apiURL) => {
   showLoadingSpinner();
@@ -54,7 +96,7 @@ const getNewQuote = async (apiURL) => {
     const data = await response.json();
     console.log(normalizeData(data));
     authorText.innerText = data.quoteAuthor;
-    quoteText.innerText = normalizeData(data);
+    quoteText.innerText = data.quoteText;
     removeLoadingSpinner();
   } catch (error) {
     console.log(error);
@@ -68,18 +110,19 @@ const getQuoteFromApi = async () => {
   try {
     const response = await fetch(proxyUrl + apiUrl);
     const data = await response.json();
+    console.log(normalizeData(data));
+    console.log('trying');
     if (data.quoteAuthor === '') {
       authorText.innerText = 'Unknown';
     } else {
       authorText.innerText = data.quoteAuthor;
     }
-    // if (data.quoteText.length > 120) {
-    //   quoteText.classList.add('long-quote');
-    // } else {
-    //   quoteText.classList.remove('long-quote');
-    // }
-    // console.log(normalizeData(data));
-    quoteText.innerText = normalizeData(data);
+    if (data.quoteText.length > 120) {
+      quoteText.classList.add('long-quote');
+    } else {
+      quoteText.classList.remove('long-quote');
+    }
+    quoteText.innerText = data.quoteText;
     removeLoadingSpinner();
   } catch (error) {
     console.log(error);
@@ -103,13 +146,13 @@ const getHackerQuoteFromApi = async () => {
     const data = await response.json();
     console.log(normalizeData(data));
     console.log('trying');
-    // authorText.innerText = 'Hacker';
-    // if (data.quotes[0] > 120) {
-    //   quoteText.classList.add('long-quote');
-    // } else {
-    //   quoteText.classList.remove('long-quote');
-    // }
-    quoteText.innerText = normalizeData(data);
+    authorText.innerText = 'Hacker';
+    if (data.quotes[0] > 120) {
+      quoteText.classList.add('long-quote');
+    } else {
+      quoteText.classList.remove('long-quote');
+    }
+    quoteText.innerText = data.quotes[0];
     removeLoadingSpinner();
   } catch (error) {
     console.log(error);
