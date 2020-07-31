@@ -1,5 +1,3 @@
-console.log('obviouusl this works');
-
 const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
@@ -24,33 +22,55 @@ const removeLoadingSpinner = () => {
 
 const normalizeQuoteDataFromApis = (data) => {
   let quoteText;
-  quoteText = data.quotes
+  return (quoteText = data.quotes
     ? data.quotes[0]
     : data.quoteText
     ? data.quoteText
     : data.paragraphs[0]
     ? data.paragraphs[0]
-    : 'end';
-  return quoteText;
+    : 'end');
 };
 
-const getQuoteFromApi = async () => {
+const normalizeAuthorDataFromApis = (data) => {
+  let authorText;
+  return (authorText = data.quotes
+    ? ' - Hacker'
+    : data.source
+    ? `${data.source} - in character`
+    : data.quoteAuthor === ''
+    ? 'Unknown'
+    : data.quoteAuthor);
+};
+
+const getNewQuote = async (apiURL) => {
   showLoadingSpinner();
   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  const apiUrl = 'https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json';
   try {
-    const response = await fetch(proxyUrl + apiUrl);
+    const response = await fetch(proxyUrl + apiURL);
     const data = await response.json();
-    authorText.innerText = data.quoteAuthor === '' ? 'Unknown' : data.quoteAuthor;
+    authorText.innerText = normalizeAuthorDataFromApis(data);
     quoteText.innerText = normalizeQuoteDataFromApis(data);
     removeLoadingSpinner();
   } catch (error) {
-    quoteText.innerText = 'bummer';
     console.log(error);
   }
 };
+const getWiseQuote = async () => {
+  getNewQuote('https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json');
+};
+const getMovieQuote = async () => {
+  getNewQuote('https://devlorem.kovah.de/api/1');
+};
+const getHackerQuote = async () => {
+  getNewQuote('https://hackerman.wtf/api');
+};
+const getJaneAustinQuote = () => {
+  console.log(generate());
+  quoteText.classList.add('long-quote');
+  quoteText.innerHTML = generate();
+  authorText.innerText = 'Jane Austin';
+};
 
-// Tweet Quote
 const tweetQuote = () => {
   const quote = quoteText.innerText;
   const author = authorText.innerText;
@@ -58,60 +78,10 @@ const tweetQuote = () => {
   window.open(twitterUrl, '_blank');
 };
 
-const getHackerQuoteFromApi = async () => {
-  showLoadingSpinner();
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  const hackerApiUrl = 'hackerman.wtf/api';
-  try {
-    const response = await fetch(proxyUrl + hackerApiUrl);
-    const data = await response.json();
-    console.log(normalizeQuoteDataFromApis(data));
-    console.log('trying');
-    authorText.innerText = 'Hacker';
-    if (data.quotes[0] > 120) {
-      quoteText.classList.add('long-quote');
-    } else {
-      quoteText.classList.remove('long-quote');
-    }
-    quoteText.innerText = data.quotes[0];
-    removeLoadingSpinner();
-  } catch (error) {
-    console.log(error);
-  }
-};
+getWiseQuote();
 
-const getDevLoremQuoteFromApi = async () => {
-  showLoadingSpinner();
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  const devLoremUrl = 'https://devlorem.kovah.de/api/1';
-  try {
-    const response = await fetch(proxyUrl + devLoremUrl);
-    const data = await response.json();
-    console.log(normalizeQuoteDataFromApis(data));
-    if (data.source === '') {
-      authorText.innerText = 'Unknown';
-    } else {
-      authorText.innerText = data.source + ' - in character';
-    }
-    quoteText.classList.add('long-quote');
-    quoteText.innerHTML = data.paragraphs[0];
-    removeLoadingSpinner();
-  } catch (error) {
-    console.log(error);
-  }
-};
-const getJaneAustinQuote = () => {
-  console.log(generate());
-  generate();
-  quoteText.classList.add('long-quote');
-  quoteText.innerHTML = generate();
-  authorText.innerText = 'Jane Austin';
-};
-
-getQuoteFromApi();
-
-newQuoteBtn.addEventListener('click', getQuoteFromApi);
-movieQuoteBtn.addEventListener('click', getDevLoremQuoteFromApi);
-hackerQuoteBtn.addEventListener('click', getHackerQuoteFromApi);
+newQuoteBtn.addEventListener('click', getWiseQuote);
+movieQuoteBtn.addEventListener('click', getMovieQuote);
+hackerQuoteBtn.addEventListener('click', getHackerQuote);
 janeQuoteBtn.addEventListener('click', getJaneAustinQuote);
 twitterBtn.addEventListener('click', tweetQuote);
