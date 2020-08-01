@@ -6,7 +6,20 @@ Generate a new quote with a click of a button and also share the quote to Twitte
 
 I searched for a variety of different quote APIs looking for a Jane Austin Quote API. Along the way I found APIs for Movie Quotes, Hacker Quotes, Mulder of the X Files Quotes, along with the suggested API, forsmatic.
 
-I chose to give the user options of which quotes they would like generated to appeal to a wider user audiance. Working with mutliple APIs, I need a way to normalize the data response to aviod writing repetitive code for each API call.
+I chose to give the user options of which quotes they would like generated to appeal to a wider user audiance. Working with mutliple APIs, I need a way to normalize the data response to aviod writing repetitive code for each API call. This became a two very nested ternary functions
+
+#### Code Snipet
+
+const normalizeQuoteDataFromApis = (data) => {
+let quoteText;
+return (quoteText = data.quotes
+? data.quotes[0]
+: data.quoteText
+? data.quoteText
+: data.paragraphs[0]
+? data.paragraphs[0].replace(/[<p>][<\/p>][>]/g, '')
+: 'end');
+};
 
 # Online Tools
 
