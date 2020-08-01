@@ -10,16 +10,16 @@ I chose to give the user options of which quotes they would like generated to ap
 
 #### Code Snipet
 
-const normalizeQuoteDataFromApis = (data) => {
-let quoteText;
-return (quoteText = data.quotes
-? data.quotes[0]
-: data.quoteText
-? data.quoteText
-: data.paragraphs[0]
-? data.paragraphs[0].replace(/[<p>][<\/p>][>]/g, '')
-: 'end');
-};
+> <p> const normalizeQuoteDataFromApis = (data) => { <br/>
+> let quoteText;<br/>
+> return (quoteText = data.quotes<br/>
+> ? data.quotes[0]<br/>
+> : data.quoteText<br/>
+> ? data.quoteText<br/>
+> : data.paragraphs[0]<br/>
+> ? data.paragraphs[0].replace(/[<p>][<\/p>]/g, '')<br/>
+> : 'end');<br/>
+> }; </p>
 
 # Online Tools
 
