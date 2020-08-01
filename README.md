@@ -10,9 +10,14 @@ I chose to give the user options of which quotes they would like generated to ap
 
 # Online Tools
 
-Background was made using [Patter Cooler](https://www.patterncooler.com/)
-Icons from [Fontawesome](https://fontawesome.com/)
-Wise Quotes from [Forismatic API](https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json)
-Hacker Quotes from [Hacker API](https://hackerman.wtf/api/n)
-Movie Quotes from [DevLorem API](https://devlorem.kovah.de/api/1)
-Jane Austin Quotes from [Jane Austin Twitter Bot Github Repo](https://github.com/matthewberryman/JaneAustenQuotes) by [Matthew Berryman](https://github.com/matthewberryman)
+-Background was made using [Patter Cooler](https://www.patterncooler.com/)
+
+-Icons from [Fontawesome](https://fontawesome.com/)
+
+-Wise Quotes from [Forismatic API](https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json)
+
+-Hacker Quotes from [Hacker API](https://hackerman.wtf/api/n)
+
+-Movie Quotes from [DevLorem API](https://devlorem.kovah.de/api/1)
+
+-Jane Austin Quotes from [Jane Austin Twitter Bot Github Repo](https://github.com/matthewberryman/JaneAustenQuotes) by [Matthew Berryman](https://github.com/matthewberryman)
