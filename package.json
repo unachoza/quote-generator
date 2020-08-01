@@ -1,0 +1,28 @@
+{
+  "name": "quotegen",
+  "version": "1.0.0",
+  "description": "generating quotes of various categories. Tweet them if you'd like.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unachoza/quote-generator.git"
+  },
+  "keywords": [
+    "quotes",
+    "twitter",
+    "movies",
+    "jane",
+    "austin",
+    "mulder",
+    "hacker"
+  ],
+  "author": "Arianna Choza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/unachoza/quote-generator/issues"
+  },
+  "homepage": "https://github.com/unachoza/quote-generator#readme"
+}
