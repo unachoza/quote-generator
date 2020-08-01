@@ -17,7 +17,7 @@ I chose to give the user options of which quotes they would like generated to ap
 > : data.quoteText<br/>
 > ? data.quoteText<br/>
 > : data.paragraphs[0]<br/>
-> ? data.paragraphs[0].replace(/[<p>][<\/p>]/g, '')<br/>
+> ? data.paragraphs[0].replace(/[< p >][<\/p>]/g, '')<br/>
 > : 'end');<br/>
 > }; </p>
 
