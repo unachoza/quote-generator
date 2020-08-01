@@ -10,7 +10,7 @@ I chose to give the user options of which quotes they would like generated to ap
 
 # Online Tools
 
--Background was made using [Patter Cooler](https://www.patterncooler.com/)
+-Background was made using [Pattern Cooler](https://www.patterncooler.com/)
 
 -Icons from [Fontawesome](https://fontawesome.com/)
 
