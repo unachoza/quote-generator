@@ -21,6 +21,10 @@ I chose to give the user options of which quotes they would like generated to ap
 > : 'end');<br/>
 > }; </p>
 
+# Demo
+![](https://res.cloudinary.com/dh41vh9dx/image/upload/v1596373739/compressed-clipped-giffed-quote-demo.gif)
+
+
 # Online Tools
 
 -Background was made using [Pattern Cooler](https://www.patterncooler.com/)
