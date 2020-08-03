@@ -7,6 +7,7 @@ const movieQuoteBtn = document.getElementById('movie-quote');
 const hackerQuoteBtn = document.getElementById('hacker-quote');
 const janeQuoteBtn = document.getElementById('jane-quote');
 const loader = document.getElementById('loader');
+const quotes = document.getElementById('quote-text-container');
 
 const showLoadingSpinner = () => {
   loader.hidden = false;
@@ -46,12 +47,16 @@ const getNewQuote = async (apiURL) => {
   showLoadingSpinner();
   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
   try {
+    quotes.classList.remove('remove');
     const response = await fetch(proxyUrl + apiURL);
     const data = await response.json();
     authorText.innerText = normalizeAuthorDataFromApis(data);
     quoteText.innerText = normalizeQuoteDataFromApis(data);
     removeLoadingSpinner();
   } catch (error) {
+    authorText.innerText = 'Oops, there is a problem! Try again';
+    quotes.classList.add('remove');
+    removeLoadingSpinner();
     console.log(error);
   }
 };

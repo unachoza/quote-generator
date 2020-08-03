@@ -40,6 +40,9 @@ a:hover {
   text-decoration: none;
   cursor: pointer;
 }
+.remove {
+  display: none;
+}
 .quote-container {
   width: auto;
   max-width: 800px;
